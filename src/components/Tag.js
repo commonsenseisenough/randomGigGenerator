@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 import { Spinner } from './Spinner';
 import { useGif } from '../hooks/useGif';
 
 
 
-const API_KEY=process.env.REACT_APP_GIPHY_API_KEY;
+// const API_KEY=process.env.REACT_APP_GIPHY_API_KEY;
 export const Tag = () => {
   
     const [tag,setTag]=useState('car');
@@ -27,9 +27,7 @@ export const Tag = () => {
 
     // }
 
-    useEffect(()=>{
-        fetchData('car');
-    },[])
+   useEffect(() => { fetchData(); }, [fetchData]);
 
     const {gif,loading,fetchData}=useGif(tag);
 
@@ -52,7 +50,7 @@ export const Tag = () => {
         </h1>
 
         {
-            loading ? (<Spinner/>):(<img src={gif} width="450" />)
+            loading ? (<Spinner/>):(<img src={gif} alt={`Gif with tag: ${tag}`} width="450" />)
         }
 
         <input 
