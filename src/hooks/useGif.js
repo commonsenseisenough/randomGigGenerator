@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
@@ -9,7 +9,7 @@ export const useGif = (tag) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
       setLoading(true);
       setError('');
@@ -25,11 +25,11 @@ export const useGif = (tag) => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [tag]);  // fetchData depends on 'tag'
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);  // add fetchData here
 
   return { gif, loading, fetchData, error };
 };
